@@ -76,6 +76,23 @@
                                 </select>
                             </div>
                         </div>
+
+
+                        <div class="col-md-2 py-2">
+                            <div class="form-groupmy-3">
+                                <label>{{ __('Select Product Type') }}</label>
+                                <select id="productTypeId" class="form-select form-select-sm" name="product_type_id"
+                                    data-control="select2" data-hide-search="false">
+                                    <option selected value="0">ALL Type</option>
+                                    @foreach ($productTypes as $productType)
+                                        <option value="{{ $productType->id }}">
+                                            {{ $productType->type_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="col-md-3 py-2">
                             <div class="form-groupmy-3">
                                 <label>{{ __('Select Product') }}</label>
@@ -216,14 +233,16 @@
         var endDate = $('#end_date').val();
         var warehouseId = $('#warehouseId').val() || 0;
         var productId = $('#productId').val() || 0;
+        var productTypeId = $('#productTypeId').val() || 0;
         url =
-            '{{ route('finish_good_wise_stock_search', ['startDate' => ':startDate', 'endDate' => ':endDate', 'warehouseId' => ':warehouseId', 'productId' => ':productId', 'pdf' => ':pdf']) }}';
+            '{{ route('finish_good_wise_stock_search', ['startDate' => ':startDate', 'endDate' => ':endDate', 'warehouseId' => ':warehouseId', 'productId' => ':productId','productTypeId' => ':productTypeId', 'pdf' => ':pdf']) }}';
 
         url = url.replace(':startDate', startDate);
         url = url.replace(':endDate', endDate);
         url = url.replace(':pdf', pdfdata);
         url = url.replace(':warehouseId', warehouseId);
         url = url.replace(':productId', productId);
+        url = url.replace(':productTypeId', productTypeId);
         console.log(url);
 
         if (pdfdata == 'list') {

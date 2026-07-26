@@ -19,8 +19,8 @@
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&amp;display=swap" rel="stylesheet" />
 
-    <link rel="shortcut icon" href="{{ asset('assets_2/images/favicon.png') }}" type="image/x-icon" />
-    <link rel="icon" href="{{ asset('assets_2/images/favicon.png') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('assets_2/images/11111108-06-2026-12-36-26_Apon_Bhubon_Logo_2 Feet.png') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('assets_2/images/11111108-06-2026-12-36-26_Apon_Bhubon_Logo_2 Feet.png') }}" type="image/x-icon" />
 
     <!-- Responsive -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -71,7 +71,7 @@
                         <div class="logo-box">
                             <div class="logo">
                                 <a href="{{ route('frontend.home') }}">
-                                    <img src="{{ asset(Storage::url($company->company_logo_one)) }}" alt="" />
+                                    <img style="height: 55px; " src="{{ asset(Storage::url($company->company_logo_one)) }}" alt="" />
                                 </a>
                             </div>
                         </div>
@@ -167,7 +167,7 @@
                             <!--Logo-->
                             <div class="logo-box">
                                 <div class="logo">
-                                    <a href="{{ route('frontend.home') }}"><img
+                                    <a href="{{ route('frontend.home') }}"><img style="height: 55px; "
                                             src="{{ asset(Storage::url($company->company_logo_one)) }}"
                                             alt="" /></a>
                                 </div>
@@ -207,7 +207,7 @@
                     <div class="nav-logo">
 
                         <a href="{{ route('frontend.home') }}">
-                            <img src="{{ asset(Storage::url($company->company_logo_one)) }}" alt="logo" />
+                            <img style="height: 55px; " src="{{ asset(Storage::url($company->company_logo_one)) }}" alt="logo" />
                         </a>
 
                     </div>
@@ -304,7 +304,7 @@
                                 </div> --}}
 
                                 <div>
-                                    <h3 class="widget-title">Wonder Park & Eco Resort</h3>
+                                    <h3 class="widget-title">Apon Bhubon Picnic & Shooting Spot</h3>
                                 </div>
 
                                 <table id="companyInfo">
@@ -430,7 +430,7 @@
                     <div class="wrapper-box">
                         <div class="copyright text-center">
                             <div class="text" style="color: #f2f2f2!important;">
-                                © Copyright {{ date('Y') }} Wonder Park. All rights reserved.
+                                © Copyright {{ date('Y') }} Apon Bhubon Picnic & Shooting Spot. All rights reserved.
                             </div>
                         </div>
                     </div>

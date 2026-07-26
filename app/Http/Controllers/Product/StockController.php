@@ -17,6 +17,7 @@ use App\Models\ProductBrand;
 use App\Models\ProductColor;
 use App\Models\ProductSize;
 use App\Models\ProductUnit;
+use App\Models\ProductType;
 use App\Models\FinanceAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -147,34 +148,40 @@ class StockController extends Controller
     }
 
     // stockReportFinishGoodWise
-    public function stockReportFinishGoodWise()
-    {
-        $warehouses = Warehouse::where('status', 1)->get();
-        $products = Product::where('status', 1)->get();
-        $startDate = Carbon::now()->format('d-m-Y');
-        $endDate = Carbon::now()->format('d-m-Y');
-        return view('pages.product.stock.stock_report_finish_good_wise', compact('warehouses', 'products', 'startDate', 'endDate'));
+      public function stockReportFinishGoodWise()
+{
+    $warehouses = Warehouse::where('status', 1)->get();
+    $products = Product::where('status', 1)->get();
+    $productTypes = ProductType::where('status', 1)->get(); // NEW
+    $startDate = Carbon::now()->format('d-m-Y');
+    $endDate = Carbon::now()->format('d-m-Y');
+    return view('pages.product.stock.stock_report_finish_good_wise',
+        compact('warehouses', 'products', 'productTypes', 'startDate', 'endDate'));
+}
+
+public function stockReportFinishGoodWiseSearch($startDate, $endDate, $warehouseId, $productId, $productTypeId, $pdf)
+{
+    $stockReportFinishGoodWise = DB::connection()->select(
+        "CALL sp_StockReportFinishGoodWise(?, ?, ?, ?, ?)",
+        array($startDate, $endDate, $warehouseId, $productId, $productTypeId)
+    );
+
+    if ($pdf == "list") {
+        return response()->json($stockReportFinishGoodWise);
     }
-    public function stockReportFinishGoodWiseSearch($startDate, $endDate, $warehouseId, $productId, $pdf)
-    {
-        // $stockReportFinishGoodWise = DB::connection()->select("CALL sp_StockReportFinishGood(?, ?, ?)", array($startDate, $endDate, $warehouseId));
-        $stockReportFinishGoodWise = DB::connection()->select("CALL sp_StockReportFinishGoodWise(?, ?, ?, ?)", array($startDate, $endDate, $warehouseId, $productId));
-        if ($pdf == "list") {
-            return response()->json($stockReportFinishGoodWise);
-        }
-        if ($pdf == "pdfurl") {
-            $companySetting = CompanySetting::where('status', 1)->orderBy('id', 'desc')->first();
-            $data['company_name'] = $companySetting->company_name;
-            $data['company_address'] = $companySetting->company_address;
-            $data['company_mobile'] = $companySetting->company_mobile;
-            $data['company_logo_one'] = $companySetting->company_logo_one;
-            $data['start_date'] = $startDate;
-            $data['end_date'] = $endDate;
-            $pdf = PDF::loadView('pages.pdf.stock_report_finish_good_wise_pdf', array('stockReportFinishGoodWise' => $stockReportFinishGoodWise, 'data' => $data));
-            // $pdf->setPaper('A4', 'landscape');
-            return $pdf->stream(Carbon::now() . '-stock_report_finish_good_wise_pdf.pdf');
-        }
+    if ($pdf == "pdfurl") {
+        $companySetting = CompanySetting::where('status', 1)->orderBy('id', 'desc')->first();
+        $data['company_name'] = $companySetting->company_name;
+        $data['company_address'] = $companySetting->company_address;
+        $data['company_mobile'] = $companySetting->company_mobile;
+        $data['company_logo_one'] = $companySetting->company_logo_one;
+        $data['start_date'] = $startDate;
+        $data['end_date'] = $endDate;
+        $pdf = PDF::loadView('pages.pdf.stock_report_finish_good_wise_pdf',
+            array('stockReportFinishGoodWise' => $stockReportFinishGoodWise, 'data' => $data));
+        return $pdf->stream(Carbon::now() . '-stock_report_finish_good_wise_pdf.pdf');
     }
+}
 
     // stockReportFinishGoodWise
     public function stockReportItemWise()

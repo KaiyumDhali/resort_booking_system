@@ -641,8 +641,10 @@ Route::get('/available-rooms', [SpotBookingController::class, 'getAvailableRooms
 
         // finish_good_wise_stock_report
         Route::get('finish_good_wise_stock_report', [StockController::class, 'stockReportFinishGoodWise'])->name('finish_good_wise_stock_report');
-        Route::get('finish_good_wise_stock_search/{startDate}/{endDate}/{warehouseId}/{productId}/{pdf}', [StockController::class, 'stockReportFinishGoodWiseSearch'])->name('finish_good_wise_stock_search');
-
+        // Route::get('finish_good_wise_stock_search/{startDate}/{endDate}/{warehouseId}/{productId}/{pdf}', [StockController::class, 'stockReportFinishGoodWiseSearch'])->name('finish_good_wise_stock_search');
+Route::get('finish-good-wise-stock-search/{startDate}/{endDate}/{warehouseId}/{productId}/{productTypeId}/{pdf}',
+    [StockController::class, 'stockReportFinishGoodWiseSearch'])
+    ->name('finish_good_wise_stock_search');
         // item_wise_stock_report
         Route::get('item_wise_stock_report', [StockController::class, 'stockReportItemWise'])->name('item_wise_stock_report');
         Route::get('item_wise_stock_search/{startDate}/{endDate}/{productID}/{pdf}', [StockController::class, 'stockReportItemWiseSearch'])->name('item_wise_stock_search');
