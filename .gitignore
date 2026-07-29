@@ -16,3 +16,4 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+/resources/views/pages/work_order/pdf_header.blade.php
